@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kws">
+
+    <select id="getAllLocation" resultType="if_project.kws.Bean.LocationBean">
+        select
+            *
+        from
+            ks_location as l
+        INNER JOIN
+            ks_volunteer as v
+        on
+            l.lc_seq = v.vl_seq;
+    </select>
+
+</mapper>

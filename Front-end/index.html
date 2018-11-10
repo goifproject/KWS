@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>map</title>
+  <meta charset="utf-8">
+
+  <!-- header -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"> </script>
+  <script type="text/javascript" src="//openapi.map.naver.com/openapi/v3/maps.js?clientId=u34gNcJzVg_ChXm76Fx0&submodules=geocoder"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/textillate/0.4.0/jquery.textillate.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <style>
+    #langselectbox{padding:5px 0px;}
+    #topselect{height:84px;margin-top:20px;}
+    #topnav{background:white;height:54px;}
+    #topnav div a {color:black;}
+    .selectmenu{background:gray;height:70px;}
+    #content{height:500px;}
+    #topnav{border-top:1px solid #acacac;border-bottom:1px solid #acacac;height:54px;}
+    #topnav .row div {padding-top:13px;text-align:center;height:54px;}
+    #topnav .row div a{font-size:20px;text-decoration:none;}
+    #topnav .row div a:hover{color:#f16c4f;}
+    #menubox{margin-top:30px;margin-bottom:30px;}
+    #menubox .selectmenu .menulist div{text-align:center;padding:5px 0px;}
+    #menubox .selectmenu .menulist div a{color:white;}
+    #searchaddr{margin-top:20px;}
+    #searchaddr select{height:30px;}
+    .selectplace{overflow-y:scroll;width:100%;height:500px; margin-left: 18%;margin-top: 5%;}
+    .selectplace div{padding-top:5px;}
+    #infobtn{text-align:center;}
+    .infoplace{margin-top:20px;}
+    .infoplace .infotext{margin-top:10px;}
+    .infoplace .infoimg{width:100%;}
+    .infoplace .infoimg img{width:300px;height:200px;}
+    #layerpop{margin-top:20%;}
+    #gowith .row div {padding-top:10px;}
+    #placelist{font-size:20px;}
+    #placelist div{padding-bottom:5%;}
+
+
+
+
+    #abouttext{color:#383838;font-size:30px;}
+    #abouttext .point{color:#f16c4f;font-size:50px;font-weight:bold;}
+
+
+    #menuselect div div{width:23%;background:#ececec;box-sizing:border-box;margin-right:2%;}
+    .lang{float:left;}
+  </style>
+</head>
+<body>
+  <!-- 언어선택, 로그인, 회원가입 -->
+  <div id="topselect" class="container-fluid">
+    <div class="row">
+      <div class="col-md-3" style="margin-top:20px;">
+        <div>
+          <div class="lang"><a href="#"><img src="http://if-project.needon.kr/mainimage/main_01.png" /></a></div>
+          <div class="lang"><img src="http://if-project.needon.kr/mainimage/main_02.png" /></div>
+          <div class="lang"><a href="#"><img src="http://if-project.needon.kr/mainimage/main_03.png" /></a></div>
+          <div class="lang"><img src="http://if-project.needon.kr/mainimage/main_04.png" /></div>
+          <div class="lang"><a href="#"><img src="http://if-project.needon.kr/mainimage/main_05.png" /></a></div>
+          <div class="lang"><img src="http://if-project.needon.kr/mainimage/main_06.png" /></div>
+          <div class="lang"><a href="#"><img src="http://if-project.needon.kr/mainimage/main_07.png" /></a></div>
+        </div>
+      </div>
+      <div class="row col-md-6" style="text-align:center;margin-top:10px;">
+        <div><a href="./"><img src="http://if-project.needon.kr/mainimage/logo_01.png" /></a></div>
+      </div>
+      <div class="col-md-3" style="margin-top:20px;">
+        <div style="float:right;">
+          <div class="lang"><a href="./"><img src="http://if-project.needon.kr/mainimage/main_08.png" /></a></div>
+          <div class="lang"><img src="http://if-project.needon.kr/mainimage/main_09.png" /></div>
+          <div class="lang"><a href="#"><img src="http://if-project.needon.kr/mainimage/main_10.png" /></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 네비게이션 메뉴 -->
+  <div id="topnav" class="p-5">
+      <div class="row">
+        <div class="col-md-3 p-3"><a href="aboutus.html"><b>ABOUT</b> US</a></div>
+        <div class="col-md-3 p-3"><a href="map.php?lc_seq=1"><b>MAP</b></div>
+        <div class="col-md-3 p-3"><a href="supporters.html"><b>Support</b>ers</a></div>
+        <div id="icon" class="col-md-3 p-3" style="border-left:1px solid #acacac;">
+          <a href="https://www.sc.or.kr/" target="_blank" style="margin-right:20px;"><img src="http://if-project.needon.kr/mainimage/icon_01.png"/></a>
+          <a href="https://www.unicef.or.kr/" target="_blank"><img src="http://if-project.needon.kr/mainimage/icon_02.png"/></a>
+        </div>
+      </div>
+  </div>
+
+
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10" style="position:relative;">
+        <img src="http://if-project.needon.kr/mainimage/real_01.png" />
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10"><img src="http://if-project.needon.kr/mainimage/rmain_02.png" /></div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10"><img src="http://if-project.needon.kr/mainimage/real_02.png" /></div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="col-md-4"><a href="map.php?lc_seq=1"><img src="http://if-project.needon.kr/mainimage/real_03.png" /></a></div>
+        <div class="col-md-4"><a href="supporters.html"><img src="http://if-project.needon.kr/mainimage/real_04.png" /></a></div>
+        <div class="col-md-4"><a href="aboutus.html"><img src="http://if-project.needon.kr/mainimage/real_05.png" /></a></div>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+
+  <div class="footer" style="width:100%;background:#e7e7e7;height:157px;margin-top:50px;">
+    <div style="text-align:center;padding-top:30px;"><img src="http://if-project.needon.kr/mainimage/footer.png"/></div>
+  </div>
+
+
+
+
+</body>
+</html>
+
+
+<script>
+  $("document").ready(function() {
+
+
+    var currentPosition = parseInt($("#right_section").css("top"));
+
+    $(window).scroll(function() {
+            var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.
+            $("#right_section").stop().animate({"top":position+currentPosition+"px"},200);
+    });
+
+    $(function () {
+      $('#matintitle').textillate({
+            loop: true,
+            // in animation settings
+            in: {
+                // effect name
+                effect: 'fadeInDown'
+            },
+            // out animation settings
+            out: {
+                effect: 'fadeOutDown'
+            }
+        });
+   });
+
+   $('#icon').find('img').hover(function() {
+     $(this).attr("src",$(this).attr("src").replace('icon_01.png','unicef_on.png')); },
+  function() { $(this).attr("src",$(this).attr("src").replace('unicef_on.png', 'icon_01.png')); });
+
+  $('#icon').find('img').hover(function() {
+    $(this).attr("src",$(this).attr("src").replace('icon_02.png','icon_01_on.png')); },
+ function() { $(this).attr("src",$(this).attr("src").replace('icon_01_on.png', 'icon_02.png')); });
+
+ });
+ $( '#matintitle' ).click( function() {
+ 	$( 'html, body' ).animate( { scrollTop : 0 }, 400 );
+ 	return false;
+ } );
+
+ $(function () {
+   $('#abouttext').textillate({
+         loop: true,
+         // in animation settings
+         in: {
+             // effect name
+             effect: 'fadeInDown'
+         },
+         // out animation settings
+         out: {
+             effect: 'fadeOutDown'
+         }
+     });
+});
+
+</script>
